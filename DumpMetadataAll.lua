@@ -19,7 +19,7 @@ LrFunctionContext.postAsyncTaskWithContext("DumpMetadataAll", function(context)
   local n_photos = string.format("%d photos", #photos)
 
   local progress = LrProgressScope{title = "Dumping metadata for " .. n_photos}
-  context:addCleanupHandler(function() progress:done() end)
+  progress:attachToFunctionContext(context)
 
   -- batch get raw
   progress:setCaption("Retrieving raw metadata for " .. n_photos)

@@ -3,7 +3,7 @@ local common = {}
 -- Show save dialog and open file to write.
 function common.open_file()
   local filename = import("LrDialogs").runSavePanel({
-    title = "Choose a filename to save the metadata dump.",
+    title = "Choose a filename to save the output as JSON.",
     requiredFileType = "json",
   })
   if filename == nil then return nil end  -- canceled

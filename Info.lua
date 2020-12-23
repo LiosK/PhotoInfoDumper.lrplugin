@@ -21,5 +21,9 @@ return {
       title = "Dump Metadata for Selected Photos...",
       file = "DumpMetadataSelected.lua",
     },
+    {
+      title = "Dump Collection Contents...",
+      file = "DumpCollections.lua",
+    },
   },
 }
