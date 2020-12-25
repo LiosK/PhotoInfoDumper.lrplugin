@@ -51,4 +51,48 @@ function common.build_photo_dump(photos, batch_raw, batch_formatted)
   return result
 end
 
+-- Recursively dump child sets and collections of a collection set
+function common.dump_set(set, progress)
+  local result = {
+    type = set:type(),
+    name = set:getName(),
+    children = {},
+  }
+
+  for _, val in ipairs(set:getChildCollectionSets()) do
+    if progress:isCanceled() then return result end
+    table.insert(result.children, common.dump_set(val, progress))
+  end
+  for _, val in ipairs(set:getChildCollections()) do
+    if progress:isCanceled() then return result end
+    table.insert(result.children, common.dump_collection(val, progress))
+  end
+
+  return result
+end
+
+-- Dump a collection and its child photos
+function common.dump_collection(collection, progress)
+  local result = {
+    type = collection:type(),
+    name = collection:getName(),
+    photos = {},
+  }
+
+  progress:setCaption("Retrieving contents of " .. result.name)
+
+  local photos = collection:getPhotos()
+  local batch_raw = collection.catalog:batchGetRawMetadata(photos, {
+    "uuid",
+    "path",
+    "isVirtualCopy",
+  })
+
+  for _, val in ipairs(photos) do
+    table.insert(result.photos, batch_raw[val])
+  end
+
+  return result
+end
+
 return common

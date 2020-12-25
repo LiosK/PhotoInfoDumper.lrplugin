@@ -9,7 +9,7 @@ return {
   LrPluginInfoUrl = "https://github.com/LiosK/PhotoInfoDumper.lrplugin",
   VERSION = {
     major = 0,
-    minor = 0,
+    minor = 1,
     revision = 1,
   },
   LrLibraryMenuItems = {
@@ -24,6 +24,10 @@ return {
     {
       title = "Dump Collection Contents...",
       file = "DumpCollections.lua",
+    },
+    {
+      title = "Dump Publish Service Collections...",
+      file = "DumpPublishServices.lua",
     },
   },
 }
